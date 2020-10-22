@@ -61,7 +61,7 @@ bios.elf: $(BIOS_DIRECTORY)/linker.ld $(OBJECTS)
 	../libliteeth/libliteeth.a \
 	../liblitespi/liblitespi.a \
 	../liblitesdcard/liblitesdcard.a
-	$(LD) $(LDFLAGS) -T $(BIOS_DIRECTORY)/linker.ld -N -o $@ \
+	$(CC) $(LDFLAGS) -T $(BIOS_DIRECTORY)/linker.ld -N -o $@ \
 		../libbase/crt0.o \
 		$(OBJECTS) \
 		-L../libcompiler_rt \

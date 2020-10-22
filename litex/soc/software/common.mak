@@ -14,7 +14,7 @@ else
 CC_normal      := $(TARGET_PREFIX)gcc -std=gnu99
 CX_normal      := $(TARGET_PREFIX)g++
 endif
-AR_normal      := $(TARGET_PREFIX)ar
+AR_normal      := $(TARGET_PREFIX)gcc-ar
 LD_normal      := $(TARGET_PREFIX)ld
 OBJCOPY_normal := $(TARGET_PREFIX)objcopy
 
@@ -50,10 +50,10 @@ INCLUDES = -I$(SOC_DIRECTORY)/software/include/base \
            -I$(SOC_DIRECTORY)/software \
            -I$(BUILDINC_DIRECTORY) \
            -I$(CPU_DIRECTORY)
-COMMONFLAGS = $(DEPFLAGS) -Os $(CPUFLAGS) -g3 -fomit-frame-pointer -Wall -fno-builtin -nostdinc -fno-stack-protector $(INCLUDES)
+COMMONFLAGS = $(DEPFLAGS) -Os $(CPUFLAGS) -g3 -fomit-frame-pointer -flto -fuse-linker-plugin -Wall -fno-builtin -nostdinc -fno-stack-protector $(INCLUDES)
 CFLAGS = $(COMMONFLAGS) -fexceptions -Wstrict-prototypes -Wold-style-definition -Wmissing-prototypes
 CXXFLAGS = $(COMMONFLAGS) -std=c++11 -I$(SOC_DIRECTORY)/software/include/basec++ -fexceptions -fno-rtti -ffreestanding
-LDFLAGS = -nostdlib -nodefaultlibs -L$(BUILDINC_DIRECTORY)
+LDFLAGS = -nostdlib -nodefaultlibs -Os $(CPUFLAGS) -L$(BUILDINC_DIRECTORY)
 
 define compilexx
 $(CX) -c $(CXXFLAGS) $(1) $< -o $@
