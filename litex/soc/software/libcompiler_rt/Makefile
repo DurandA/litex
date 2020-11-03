@@ -21,10 +21,10 @@ libcompiler_rt.a: $(OBJECTS)
 -include $(OBJECTS:.o=.d)
 
 mulsi3.o: $(SOC_DIRECTORY)/software/libcompiler_rt/mulsi3.c
-	$(compile)
+	$(call compile,-fno-lto)
 
 %.o: $(COMPILER_RT_DIRECTORY)/lib/builtins/%.c
-	$(compile)
+	$(call compile,-fno-lto)
 
 .PHONY: all clean
 

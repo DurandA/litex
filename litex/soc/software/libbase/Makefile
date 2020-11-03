@@ -35,6 +35,9 @@ libbase-nofloat.a: $(OBJECTS) vsnprintf-nofloat.o
 vsnprintf-nofloat.o: $(LIBBASE_DIRECTORY)/vsnprintf.c
 	$(call compile,-DNO_FLOAT)
 
+libc.o: $(LIBBASE_DIRECTORY)/libc.c
+	$(call compile,-fno-lto)
+
 %.o: $(LIBBASE_DIRECTORY)/%.c
 	$(compile)
 
